@@ -54,7 +54,7 @@ public class LogInController implements Initializable {
 
 
     private void DoctorLogin() {
-        System.out.println("doctor login");
+        Main.doctorLogIn();
     }
 
 

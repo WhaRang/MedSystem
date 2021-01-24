@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="300.0" style="-fx-background-color: #5258A8;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.SignUpController">
+<AnchorPane prefHeight="420.0" prefWidth="300.0" style="-fx-background-color: #5258A8;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ChoosePatientController">
    <children>
       <GridPane prefHeight="421.0" prefWidth="300.0">
          <columnConstraints>
@@ -39,8 +39,8 @@
             </TextField>
             <TableView fx:id="patientTable" maxWidth="280.0" prefHeight="262.0" prefWidth="280.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <columns>
-                  <TableColumn prefWidth="75.0" text="ID" />
-                  <TableColumn prefWidth="204.00001525878906" text="Imię i Nazwisko" />
+                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="nameColumn" prefWidth="204.00001525878906" text="Imię i Nazwisko" />
                </columns>
             </TableView>
             <TextField fx:id="textFieldID" layoutX="45.0" layoutY="32.0" maxWidth="100.0" prefHeight="26.0" prefWidth="167.0" promptText="ID">

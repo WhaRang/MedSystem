@@ -17,23 +17,25 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="92.4000244140625" minHeight="10.0" prefHeight="71.80001831054688" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="60.0" minHeight="50.0" prefHeight="60.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnSignUp" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/buttonstyle.css" text="Zarejestruj" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <Button fx:id="btnSignUp" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/buttonstyle.css" text="Zarejestruj" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font name="Microsoft New Tai Lue" size="14.0" />
                </font>
             </Button>
-            <TextField fx:id="textFieldEmail" maxWidth="230.0" prefWidth="230.0" promptText="email" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <TextField fx:id="textFieldEmail" maxWidth="230.0" prefWidth="230.0" promptText="email" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="textFieldPassword" maxWidth="230.0" prefHeight="26.0" prefWidth="230.0" promptText="password" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <TextField fx:id="textFieldPassword" maxWidth="230.0" prefHeight="26.0" prefWidth="230.0" promptText="password" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
@@ -43,7 +45,17 @@
                   <Font name="Microsoft New Tai Lue" size="40.0" />
                </font>
             </Text>
-            <TextField fx:id="textFieldRepeatPassword" maxWidth="230.0" prefHeight="26.0" prefWidth="230.0" promptText="repeat password" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <TextField fx:id="textFieldRepeatPassword" maxWidth="230.0" prefHeight="26.0" prefWidth="230.0" promptText="repeat password" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="textFieldName" layoutX="45.0" layoutY="124.0" maxWidth="230.0" prefWidth="230.0" promptText="name" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="textFieldSurname" maxWidth="230.0" prefWidth="230.0" promptText="surname" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

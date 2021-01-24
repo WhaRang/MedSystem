@@ -11,6 +11,7 @@ public class Main extends Application {
     public static Stage loginStage;
     public static Stage patientStage;
     public static Stage signupStage;
+    public static Stage choosePatientStage;
 
 
     @Override
@@ -19,6 +20,12 @@ public class Main extends Application {
         Parent loginRoot = FXMLLoader.load(getClass().getResource("fxml/LogIn.fxml"));
         Parent patientRoot = FXMLLoader.load(getClass().getResource("fxml/Patient.fxml"));
         Parent signupRoot = FXMLLoader.load(getClass().getResource("fxml/SignUp.fxml"));
+        Parent choosePatientRoot = FXMLLoader.load(getClass().getResource("fxml/ChoosePatient.fxml"));
+
+        choosePatientStage = new Stage();
+        choosePatientStage.setResizable(false);
+        choosePatientStage.setTitle("MedSystem");
+        choosePatientStage.setScene(new Scene(choosePatientRoot));
 
         signupStage = new Stage();
         signupStage.setResizable(false);
@@ -34,6 +41,7 @@ public class Main extends Application {
         loginStage.setResizable(false);
         loginStage.setTitle("MedSystem");
         loginStage.setScene(new Scene(loginRoot));
+
         loginStage.show();
     }
 
@@ -58,6 +66,12 @@ public class Main extends Application {
 
     public static void signUp() {
         signupStage.show();
+        loginStage.close();
+    }
+
+
+    public static void doctorLogIn() {
+        choosePatientStage.show();
         loginStage.close();
     }
 

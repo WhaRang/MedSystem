@@ -24,7 +24,7 @@
             <RowConstraints maxHeight="60.0" minHeight="47.79998779296875" prefHeight="51.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="bntChoose" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/buttonstyle.css" text="Wybierz" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Button fx:id="btnChoose" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/buttonstyle.css" text="Wybierz" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Microsoft New Tai Lue" size="14.0" />
                </font>

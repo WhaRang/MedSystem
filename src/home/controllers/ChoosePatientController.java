@@ -1,5 +1,6 @@
 package home.controllers;
 
+import home.Main;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ import java.util.ResourceBundle;
 public class ChoosePatientController implements Initializable {
 
     @FXML
-    private Button bntChoose;
+    private Button btnChoose;
 
     @FXML
     private TextField textFieldNameSurname;
@@ -46,7 +47,9 @@ public class ChoosePatientController implements Initializable {
 
     @FXML
     void handleClicks(ActionEvent event) {
-
+        if (event.getSource() == btnChoose) {
+            Main.afterPatientChoose();
+        }
     }
 
 
@@ -72,19 +75,20 @@ public class ChoosePatientController implements Initializable {
             assert response != null;
             jsonArr = (JSONArray) parser.parse(response.body());
 
-            idColumn.setCellValueFactory((p)->{
+            idColumn.setCellValueFactory((p) -> {
                 String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length>0 ? x[0] : "<no id>");
+                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no id>");
             });
 
-            nameColumn.setCellValueFactory((p)->{
+            nameColumn.setCellValueFactory((p) -> {
                 String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length>1 ? x[1] : "<no name>");
+                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no name>");
             });
 
             String[][] data = new String[jsonArr.size()][2];
             for (int i = 0; i < jsonArr.size(); i++) {
-                data[i] = new String[]{"" + i,((JSONObject) jsonArr.get(i)).get("birthDay").toString() };
+                data[i] = new String[]{((JSONObject) jsonArr.get(i)).get("id").toString(),
+                        ((JSONObject) jsonArr.get(i)).get("name").toString()};
             }
 
             patientTable.getItems().addAll(Arrays.asList(data));

@@ -37,6 +37,11 @@ public class LogInController implements Initializable {
     @FXML
     private void handleClicks(ActionEvent event) {
         if (event.getSource() == btnPatientLogin) {
+            /*Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error!");
+            alert.showAndWait();*/
             PatientLogin();
         }
         else if (event.getSource() == btnDoctorLogin) {

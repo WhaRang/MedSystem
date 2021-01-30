@@ -1,5 +1,6 @@
 package home;
 
+import home.helpers.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         //TODO wait until everything is implemented
-        //DataHolder.initializeTables();
+        DataHolder.initializeData();
 
         Parent loginRoot = FXMLLoader.load(getClass().getResource("fxml/LogIn.fxml"));
         Parent patientRoot = FXMLLoader.load(getClass().getResource("fxml/Patient.fxml"));

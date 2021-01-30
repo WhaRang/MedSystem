@@ -8,15 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ResourceBundle;
 
 public class PatientController implements Initializable {
@@ -27,9 +20,6 @@ public class PatientController implements Initializable {
     private TableView<String[]> insuranceTableView;
 
     @FXML
-    private TableColumn<String[], String> insuranceIdColumn;
-
-    @FXML
     private TableColumn<String[], String> insuranceExpDateColumn;
 
     @FXML
@@ -37,9 +27,6 @@ public class PatientController implements Initializable {
 
     @FXML
     private TableView<String[]> appointmentTableView;
-
-    @FXML
-    private TableColumn<String[], String> appointmentIdColumn;
 
     @FXML
     private TableColumn<String[], String> appointmentTimeColumn;
@@ -54,9 +41,6 @@ public class PatientController implements Initializable {
     private TableView<String[]> researchesTableView;
 
     @FXML
-    private TableColumn<String[], String> researchesIdColumn;
-
-    @FXML
     private TableColumn<String[], String> researchesStartDateColumn;
 
     @FXML
@@ -67,9 +51,6 @@ public class PatientController implements Initializable {
 
     @FXML
     private TableView<String[]> recipesTableView;
-
-    @FXML
-    private TableColumn<String[], String> recipesIdColumn;
 
     @FXML
     private TableColumn<String[], String> recipesDateStartColumn;
@@ -122,23 +103,9 @@ public class PatientController implements Initializable {
     @FXML
     private GridPane panelReferrals;
 
-    JSONObject patientJSONobj;
-    JSONArray insuranceJSONarr;
-    JSONArray allergiesJSONarr;
-    JSONArray patientDiseasesJSONarr;
-    JSONArray diseasesJSONarr;
-    JSONArray referralsJSONarr;
-
-    //TODO
-    JSONObject appointmentsJSONobj;
-
-    JSONArray researchesJSONarr;
-    JSONArray recipesJSONarr;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadInfo();
         printInfo();
     }
 
@@ -163,6 +130,7 @@ public class PatientController implements Initializable {
             logOut();
         }
     }
+
 
     private void logOut() {
         Main.patientLogOut();
@@ -222,9 +190,33 @@ public class PatientController implements Initializable {
 
 
     private void printInfo() {
+        printInsurances();
+        printAllergies();
+        printDiseases();
+        printReferrals();
         printVisits();
         printResearches();
         printRecipes();
+    }
+
+
+    private void printReferrals() {
+
+    }
+
+
+    private void printDiseases() {
+
+    }
+
+
+    private void printAllergies() {
+
+    }
+
+
+    private void printInsurances() {
+
     }
 
 
@@ -235,128 +227,10 @@ public class PatientController implements Initializable {
 
     private void printResearches() {
 
-
     }
 
 
     private void printVisits() {
 
-
-    }
-
-
-    private void loadInfo() {
-        
-        var client = HttpClient.newHttpClient();
-
-        HttpResponse<String> response = null;
-        try {
-            JSONParser parser = new JSONParser();
-
-            patientJSONobj = new JSONObject();
-            allergiesJSONarr = new JSONArray();
-            patientDiseasesJSONarr = new JSONArray();
-            recipesJSONarr = new JSONArray();
-            appointmentsJSONobj = new JSONObject();
-            researchesJSONarr = new JSONArray();
-            insuranceJSONarr = new JSONArray();
-            referralsJSONarr = new JSONArray();
-
-            //PATIENT
-            var request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getPatients&id="+patientID))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            patientJSONobj = (JSONObject) parser.parse(response.body());
-
-            //VISITS
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getVisits"))
-                    .header("accept", "application/json")
-                    .build();
-
-            //TODO create array, not object
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            appointmentsJSONobj = (JSONObject) parser.parse(response.body());
-
-            //ALLERGIES
-            /*request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getHypersensitivities"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            allergiesJSONarr = (JSONArray) parser.parse(response.body());
-*/
-            //PATIENT DISEASES
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getPatientDiseases"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            patientDiseasesJSONarr = (JSONArray) parser.parse(response.body());
-
-            //DISEASES
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getDiseases"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            diseasesJSONarr = (JSONArray) parser.parse(response.body());
-
-            //RECIPES
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getPrescription"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            recipesJSONarr = (JSONArray) parser.parse(response.body());
-
-            //INSURANCES
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getInsurances"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            insuranceJSONarr = (JSONArray) parser.parse(response.body());
-
-            //REFERRALS
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getReferrals"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            referralsJSONarr = (JSONArray) parser.parse(response.body());
-
-            //RESEARCHES
-            request = HttpRequest.newBuilder(
-                    URI.create("http://localhost:8083/medapp/getResearches"))
-                    .header("accept", "application/json")
-                    .build();
-
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assert response != null;
-            researchesJSONarr = (JSONArray) parser.parse(response.body());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        assert response != null;
     }
 }

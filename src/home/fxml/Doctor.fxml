@@ -154,6 +154,101 @@
             </Button>
          </children>
       </VBox>
+      <GridPane fx:id="panelRecipes" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <columns>
+                  <TableColumn prefWidth="40.800048828125" text="ID" />
+                  <TableColumn minWidth="0.0" prefWidth="75.20002746582031" text="Lek" />
+                  <TableColumn minWidth="0.0" prefWidth="85.5999755859375" text="DataWydania" />
+                  <TableColumn minWidth="0.0" prefWidth="101.5999755859375" text="DataWażności" />
+                  <TableColumn minWidth="0.0" prefWidth="84.7999267578125" text="Stosowanie" />
+                  <TableColumn minWidth="0.0" prefWidth="75.19989013671875" text="Opis" />
+               </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
+               <GridPane.margin>
+                  <Insets left="-22.0" right="-21.0" />
+               </GridPane.margin>
+               <children>
+                  <Text fx:id="txtStatus1211" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recepty" textAlignment="CENTER" wrappingWidth="169.33667755126953">
+                     <font>
+                        <Font name="Microsoft New Tai Lue" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+      <GridPane fx:id="panelAllergies" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="ID" />
+                  <TableColumn minWidth="0.0" prefWidth="391.2" text="Opis" />
+               </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
+               <GridPane.margin>
+                  <Insets left="-22.0" right="-21.0" />
+               </GridPane.margin>
+               <children>
+                  <Text fx:id="txtStatus1" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nadwrażliwości" textAlignment="CENTER" wrappingWidth="169.33667755126953">
+                     <font>
+                        <Font name="Microsoft New Tai Lue" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+      <GridPane fx:id="panelInsurances" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView prefHeight="359.0" prefWidth="467.0" GridPane.rowIndex="2">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="ID" />
+                  <TableColumn prefWidth="124.0" text="Data ważności" />
+                  <TableColumn minWidth="0.0" prefWidth="263.9999694824219" text="Opis" />
+               </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
+               <GridPane.margin>
+                  <Insets left="-22.0" right="-21.0" />
+               </GridPane.margin>
+               <children>
+                  <Text fx:id="txtStatus" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ubezpieczenia" textAlignment="CENTER" wrappingWidth="169.33667755126953">
+                     <font>
+                        <Font name="Microsoft New Tai Lue" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
       <GridPane fx:id="panelReferrals" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -277,101 +372,6 @@
                </GridPane.margin>
                <children>
                   <Text fx:id="txtStatus121" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Badania" textAlignment="CENTER" wrappingWidth="169.33667755126953">
-                     <font>
-                        <Font name="Microsoft New Tai Lue" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </GridPane>
-      <GridPane fx:id="panelRecipes" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <columns>
-                  <TableColumn prefWidth="40.800048828125" text="ID" />
-                  <TableColumn minWidth="0.0" prefWidth="75.20002746582031" text="Lek" />
-                  <TableColumn minWidth="0.0" prefWidth="85.5999755859375" text="DataWydania" />
-                  <TableColumn minWidth="0.0" prefWidth="101.5999755859375" text="DataWażności" />
-                  <TableColumn minWidth="0.0" prefWidth="84.7999267578125" text="Stosowanie" />
-                  <TableColumn minWidth="0.0" prefWidth="75.19989013671875" text="Opis" />
-               </columns>
-            </TableView>
-            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
-               <GridPane.margin>
-                  <Insets left="-22.0" right="-21.0" />
-               </GridPane.margin>
-               <children>
-                  <Text fx:id="txtStatus1211" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recepty" textAlignment="CENTER" wrappingWidth="169.33667755126953">
-                     <font>
-                        <Font name="Microsoft New Tai Lue" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </GridPane>
-      <GridPane fx:id="panelAllergies" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <columns>
-                  <TableColumn prefWidth="75.0" text="ID" />
-                  <TableColumn minWidth="0.0" prefWidth="391.2" text="Opis" />
-               </columns>
-            </TableView>
-            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
-               <GridPane.margin>
-                  <Insets left="-22.0" right="-21.0" />
-               </GridPane.margin>
-               <children>
-                  <Text fx:id="txtStatus1" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nadwrażliwości" textAlignment="CENTER" wrappingWidth="169.33667755126953">
-                     <font>
-                        <Font name="Microsoft New Tai Lue" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </GridPane>
-      <GridPane fx:id="panelInsurances" layoutX="213.0" layoutY="39.0" prefHeight="500.0" prefWidth="466.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TableView prefHeight="359.0" prefWidth="467.0" GridPane.rowIndex="2">
-               <columns>
-                  <TableColumn prefWidth="75.0" text="ID" />
-                  <TableColumn prefWidth="124.0" text="Data ważności" />
-                  <TableColumn minWidth="0.0" prefWidth="263.9999694824219" text="Opis" />
-               </columns>
-            </TableView>
-            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
-               <GridPane.margin>
-                  <Insets left="-22.0" right="-21.0" />
-               </GridPane.margin>
-               <children>
-                  <Text fx:id="txtStatus" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ubezpieczenia" textAlignment="CENTER" wrappingWidth="169.33667755126953">
                      <font>
                         <Font name="Microsoft New Tai Lue" size="24.0" />
                      </font>

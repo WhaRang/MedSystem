@@ -43,11 +43,9 @@ public class LogInController implements Initializable {
             alert.setContentText("Ooops, there was an error!");
             alert.showAndWait();*/
             PatientLogin();
-        }
-        else if (event.getSource() == btnDoctorLogin) {
+        } else if (event.getSource() == btnDoctorLogin) {
             DoctorLogin();
-        }
-        else if (event.getSource() == btnSignUp) {
+        } else if (event.getSource() == btnSignUp) {
             SignUp();
         }
     }

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     private static Stage loginStage;
@@ -15,8 +16,16 @@ public class Main extends Application {
     private static Stage doctorStage;
 
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        //TODO wait until everything is implemented
+        //DataHolder.initializeTables();
 
         Parent loginRoot = FXMLLoader.load(getClass().getResource("fxml/LogIn.fxml"));
         Parent patientRoot = FXMLLoader.load(getClass().getResource("fxml/Patient.fxml"));
@@ -24,30 +33,11 @@ public class Main extends Application {
         Parent choosePatientRoot = FXMLLoader.load(getClass().getResource("fxml/ChoosePatient.fxml"));
         Parent doctorRoot = FXMLLoader.load(getClass().getResource("fxml/Doctor.fxml"));
 
-        doctorStage = new Stage();
-        doctorStage.setResizable(false);
-        doctorStage.setTitle("Doctor");
-        doctorStage.setScene(new Scene(doctorRoot));
-
-        choosePatientStage = new Stage();
-        choosePatientStage.setResizable(false);
-        choosePatientStage.setTitle("Choose Patient");
-        choosePatientStage.setScene(new Scene(choosePatientRoot));
-
-        signupStage = new Stage();
-        signupStage.setResizable(false);
-        signupStage.setTitle("Sign Up");
-        signupStage.setScene(new Scene(signupRoot));
-
-        patientStage = new Stage();
-        patientStage.setResizable(false);
-        patientStage.setTitle("Patient");
-        patientStage.setScene(new Scene(patientRoot));
-
-        loginStage = new Stage();
-        loginStage.setResizable(false);
-        loginStage.setTitle("Med System");
-        loginStage.setScene(new Scene(loginRoot));
+        doctorStage = loadStage(false, "Doctor", doctorRoot);
+        patientStage = loadStage(false, "Patient", patientRoot);
+        signupStage = loadStage(false, "Sign Up", signupRoot);
+        choosePatientStage = loadStage(false, "Choose Patient", choosePatientRoot);
+        loginStage = loadStage(false, "Log In", loginRoot);
 
         loginStage.show();
     }
@@ -95,7 +85,13 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
-        launch(args);
+    private static Stage loadStage(boolean resizable, String title, Parent root) {
+        Stage stage = new Stage();
+        stage.setResizable(resizable);
+        stage.setTitle(title);
+        stage.setScene(new Scene(root));
+
+        return stage;
     }
+
 }

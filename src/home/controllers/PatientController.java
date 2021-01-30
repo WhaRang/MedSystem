@@ -1,7 +1,6 @@
 package home.controllers;
 
 import home.Main;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +17,6 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class PatientController implements Initializable {
@@ -231,114 +229,19 @@ public class PatientController implements Initializable {
 
 
     private void printRecipes() {
-        try {
-            recipesIdColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no id>");
-            });
 
-            recipesDateStartColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no start_date>");
-            });
-
-            recipesDateEndColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no end_date>");
-            });
-
-            String[][] data = new String[appointmentsJSONobj.size()][3];
-            for (int i = 0; i < appointmentsJSONobj.size(); i++) {
-                data[i] = new String[]{
-                        ((JSONObject) recipesJSONarr.get(i)).get("id").toString(),
-                        ((JSONObject) recipesJSONarr.get(i)).get("startDate").toString(),
-                        ((JSONObject) recipesJSONarr.get(i)).get("endDate").toString()};
-            }
-
-
-            recipesTableView.getItems().addAll(Arrays.asList(data));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
     private void printResearches() {
 
-        try {
-            researchesIdColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no id>");
-            });
 
-            researchesStartDateColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no start_date>");
-            });
-
-            researchesDescColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no desc>");
-            });
-
-            researchesEndDateColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no end_date>");
-            });
-
-            //TODO
-            String[][] data = new String[appointmentsJSONobj.size()][4];
-            for (int i = 0; i < 1; i++) {
-                data[i] = new String[]{
-                        appointmentsJSONobj.get("id").toString(),
-                        appointmentsJSONobj.get("startDate").toString(),
-                        appointmentsJSONobj.get("endDate").toString(),
-                        appointmentsJSONobj.get("description").toString()};
-            }
-
-            researchesTableView.getItems().addAll(Arrays.asList(data));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
     private void printVisits() {
 
-        try {
-            appointmentIdColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no id>");
-            });
 
-            appointmentTimeColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 0 ? x[0] : "<no time>");
-            });
-
-            appointmentDescColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no desc>");
-            });
-
-            appointmentResultColumn.setCellValueFactory((p) -> {
-                String[] x = p.getValue();
-                return new SimpleStringProperty(x != null && x.length > 1 ? x[1] : "<no result>");
-            });
-
-            String[][] data = new String[appointmentsJSONobj.size()][5];
-            for (int i = 0; i < appointmentsJSONobj.size(); i++) {
-                data[i] = new String[]{
-                        ((JSONObject) appointmentsJSONobj.get(i)).get("id").toString(),
-                        ((JSONObject) appointmentsJSONobj.get(i)).get("timeStamp").toString(),
-                        ((JSONObject) appointmentsJSONobj.get(i)).get("description").toString(),
-                        ((JSONObject) appointmentsJSONobj.get(i)).get("result").toString()};
-            }
-
-            appointmentTableView.getItems().addAll(Arrays.asList(data));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 

@@ -1,7 +1,6 @@
 package home.controllers;
 
 import home.*;
-import home.helpers.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +11,7 @@ import javafx.scene.control.TextField;
 import org.json.simple.JSONArray;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -56,9 +56,12 @@ public class ChoosePatientController implements Initializable {
             nameColumn.setCellValueFactory(
                     ViewConfigurator.getStdCallbackForCVF("<no name>", 1));
 
-            String[][] data = ViewConfigurator.getColumnDataFromJsonArr(jsonArr, new String[]{"id", "name"});
+            var data =
+                    ViewConfigurator.getColumnDataFromJsonArr(jsonArr, new ArrayList<>(Arrays.asList("id", "name")));
 
-            patientTable.getItems().addAll(Arrays.asList(data));
+            var rawData = DataConverter.convertToRawData(data);
+
+            patientTable.getItems().addAll(Arrays.asList(rawData));
         } catch (Exception e) {
             e.printStackTrace();
         }

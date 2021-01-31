@@ -1,4 +1,4 @@
-package home.helpers;
+package home;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -8,7 +8,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ViewConfigurator {
 
@@ -22,10 +21,9 @@ public class ViewConfigurator {
     }
 
 
-    public static String[][] getColumnDataFromJsonArr(JSONArray jsonArr, String[] rawColumnNamesArr) {
+    public static ArrayList<ArrayList<String>> getColumnDataFromJsonArr(JSONArray jsonArr, ArrayList<String> columnNamesArr) {
 
-        ArrayList<String> columnNamesArr = new ArrayList<>(Arrays.asList(rawColumnNamesArr));
-        String[][] data = new String[jsonArr.size()][columnNamesArr.size()];
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
 
         for (int i = 0; i < jsonArr.size(); i++) {
 
@@ -34,10 +32,7 @@ public class ViewConfigurator {
                 rowData.add(((JSONObject) jsonArr.get(i)).get(columnName).toString());
             }
 
-            String[] rawRowData = new String[rowData.size()];
-            rawRowData = rowData.toArray(rawRowData);
-
-            data[i] = rawRowData;
+            data.add(rowData);
         }
 
         return data;

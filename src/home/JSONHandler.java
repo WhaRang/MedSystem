@@ -1,4 +1,4 @@
-package home.helpers;
+package home;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -39,13 +39,36 @@ public class JSONHandler {
     }
 
 
-    public JSONArray filterItemsByValue(JSONArray source, Object key, Object value) {
+    public JSONArray filterItemsByMultipleValues(JSONArray source, Object key, ArrayList<String> values) {
 
         JSONArray result = new JSONArray();
 
         for (Object item : source) {
+
             JSONObject jsonItem = (JSONObject) item;
-            if (jsonItem.get(key).equals(value)) {
+            String itemStr = String.valueOf(jsonItem.get(key));
+
+            for (String value : values) {
+                if (value.equals(itemStr)) {
+                    result.add(item);
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    public JSONArray filterItemsByValue(JSONArray source, Object key, String value) {
+
+        JSONArray result = new JSONArray();
+
+        for (Object item : source) {
+
+            JSONObject jsonItem = (JSONObject) item;
+            String itemStr = String.valueOf(jsonItem.get(key));
+
+            if (value.equals(itemStr)) {
                 result.add(item);
             }
         }

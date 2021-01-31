@@ -38,16 +38,27 @@ public class ChoosePatientController implements Initializable {
     @FXML
     private Button btnSearch;
 
+
     @FXML
     void handleClicks(ActionEvent event) {
         if (event.getSource() == btnChoose) {
-            Main.afterPatientChoose();
+            choosePatient();
         }
+    }
+
+
+    private void choosePatient() {
+        int newId = Integer.parseInt(patientTable.getSelectionModel().getSelectedItem()[0]);
+        PatientDataController.setPatientId(newId);
+        PatientDataController.setDoctorPermission(true);
+        Main.afterPatientChoose();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Choose patient init");
+
         JSONArray jsonArr = DataHolder.patients;
 
         try {

@@ -31,6 +31,7 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Login init");
     }
 
 
@@ -52,6 +53,7 @@ public class LogInController implements Initializable {
 
 
     private void PatientLogin() {
+        PatientDataController.setDoctorPermission(false);
         Main.patientLogIn();
     }
 

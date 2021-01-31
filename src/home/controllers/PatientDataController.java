@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import org.json.simple.JSONArray;
 
@@ -15,9 +16,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class PatientController implements Initializable {
+public class PatientDataController implements Initializable {
 
-    public static int patientID = 1;
+    private static int patientID = 1;
+    private static boolean isDoctorPermission = false;
 
     @FXML
     private TableView<String[]> insuranceTable;
@@ -154,11 +156,33 @@ public class PatientController implements Initializable {
     @FXML
     private GridPane panelReferrals;
 
+    @FXML
+    private TextField dataTextField;
+
+    @FXML
+    private Button btnFind;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnAdd;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Patient data init");
+
+        setEditingViewVisible(isDoctorPermission);
+
         initColumns();
         printInfo();
+    }
+
+
+    private void setEditingViewVisible(boolean isVisible) {
+        btnAdd.setVisible(isVisible);
+        btnDelete.setVisible(isVisible);
     }
 
 
@@ -511,5 +535,21 @@ public class PatientController implements Initializable {
 
         var rawData = DataConverter.convertToRawData(data);
         surveysTable.getItems().addAll(Arrays.asList(rawData));
+    }
+
+
+    public static void setPatientId(int newId) {
+        if (patientID != newId) {
+            patientID = newId;
+            Main.shouldInitPatientDataStage = true;
+        }
+    }
+
+
+    public static void setDoctorPermission(boolean permission) {
+        if (isDoctorPermission != permission) {
+            isDoctorPermission = permission;
+            Main.shouldInitPatientDataStage = true;
+        }
     }
 }

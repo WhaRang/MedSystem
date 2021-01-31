@@ -22,6 +22,7 @@ public class HttpRequestSender {
             var request = HttpRequest.newBuilder(
                     URI.create(queryURL))
                     .header("accept", "application/json")
+                    .header("Authorization","Bearer Kappa123")
                     .build();
 
             responseHttp = client.send(request, HttpResponse.BodyHandlers.ofString());

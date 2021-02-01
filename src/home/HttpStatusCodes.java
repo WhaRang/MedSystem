@@ -1,4 +1,4 @@
-package home.helpers;
+package home;
 
 public enum HttpStatusCodes {
 

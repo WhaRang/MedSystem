@@ -1,4 +1,4 @@
-package home.helpers;
+package home;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,8 +21,8 @@ public class HttpRequestSender {
         try {
             var request = HttpRequest.newBuilder(
                     URI.create(queryURL))
-                    .header("accept", "application/json")
-                    .header("Authorization","Bearer Kappa123")
+                    .header("Authorization",
+                            "eyJzY29wZSI6ImFsbCIsImlkIjoiMTIiLCJleHAiOiIyMDIxLTAxLTMxVDIzOjA4OjM5LjcwODA1NyswMTowMCJ9")
                     .build();
 
             responseHttp = client.send(request, HttpResponse.BodyHandlers.ofString());

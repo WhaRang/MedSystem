@@ -1,6 +1,5 @@
 package home;
 
-import home.helpers.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +10,14 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static Stage loginStage;
-    private static Stage patientStage;
+    private static Stage patientDataStage;
     private static Stage signupStage;
     private static Stage choosePatientStage;
-    private static Stage doctorStage;
 
+    public static boolean shouldInitLoginStage = true;
+    public static boolean shouldInitPatientDataStage = true;
+    public static boolean shouldInitSignupStage = true;
+    public static boolean shouldInitChoosePatientStage = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,65 +26,99 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        //TODO wait until everything is implemented
         DataHolder.initializeData();
-
-        Parent loginRoot = FXMLLoader.load(getClass().getResource("fxml/LogIn.fxml"));
-        Parent patientRoot = FXMLLoader.load(getClass().getResource("fxml/Patient.fxml"));
-        Parent signupRoot = FXMLLoader.load(getClass().getResource("fxml/SignUp.fxml"));
-        Parent choosePatientRoot = FXMLLoader.load(getClass().getResource("fxml/ChoosePatient.fxml"));
-        Parent doctorRoot = FXMLLoader.load(getClass().getResource("fxml/Doctor.fxml"));
-
-        doctorStage = loadStage(false, "Doctor", doctorRoot);
-        patientStage = loadStage(false, "Patient", patientRoot);
-        signupStage = loadStage(false, "Sign Up", signupRoot);
-        choosePatientStage = loadStage(false, "Choose Patient", choosePatientRoot);
-        loginStage = loadStage(false, "Log In", loginRoot);
-
-        loginStage.show();
+        loadLogin();
     }
 
 
     public static void patientLogIn() {
-        patientStage.show();
-        loginStage.close();
+        try {
+            if (shouldInitPatientDataStage) {
+                shouldInitPatientDataStage = false;
+                Parent patientRoot = FXMLLoader.load(Main.class.getResource("fxml/PatientData.fxml"));
+                patientDataStage = loadStage(false, "Patient", patientRoot);
+            }
+
+            patientDataStage.show();
+            loginStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void loadLogin() {
+        try {
+            if (shouldInitLoginStage) {
+                shouldInitLoginStage = false;
+                Parent loginRoot = FXMLLoader.load(Main.class.getResource("fxml/LogIn.fxml"));
+                loginStage = loadStage(false, "Log In", loginRoot);
+            }
+
+            loginStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void patientLogOut() {
-        loginStage.show();
-        patientStage.close();
+        loadLogin();
+        patientDataStage.close();
     }
 
 
     public static void afterSignUpLogIn() {
-        loginStage.show();
+        loadLogin();
         signupStage.close();
     }
 
 
     public static void signUp() {
-        signupStage.show();
-        loginStage.close();
+        try {
+            if (shouldInitSignupStage) {
+                shouldInitSignupStage = false;
+                Parent signupRoot = FXMLLoader.load(Main.class.getResource("fxml/SignUp.fxml"));
+                signupStage = loadStage(false, "Sign Up", signupRoot);
+            }
+
+            signupStage.show();
+            loginStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void doctorLogIn() {
-        choosePatientStage.show();
-        loginStage.close();
-    }
+        try {
+            if (shouldInitChoosePatientStage) {
+                shouldInitChoosePatientStage = false;
+                Parent choosePatientRoot = FXMLLoader.load(Main.class.getResource("fxml/ChoosePatient.fxml"));
+                choosePatientStage = loadStage(false, "Choose Patient", choosePatientRoot);
+            }
 
-
-    public static void doctorLogOut() {
-        loginStage.show();
-        doctorStage.close();
+            choosePatientStage.show();
+            loginStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void afterPatientChoose() {
-        doctorStage.show();
-        choosePatientStage.close();
+        try {
+            if (shouldInitPatientDataStage) {
+                shouldInitPatientDataStage = false;
+                Parent doctorRoot = FXMLLoader.load(Main.class.getResource("fxml/PatientData.fxml"));
+                patientDataStage = loadStage(false, "Doctor", doctorRoot);
+            }
+
+            patientDataStage.show();
+            choosePatientStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

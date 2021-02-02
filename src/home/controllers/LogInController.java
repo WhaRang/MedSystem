@@ -37,7 +37,8 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Login init");
+        //TEST
+        HttpRequestSender sender = new HttpRequestSender();
     }
 
 

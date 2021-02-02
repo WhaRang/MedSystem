@@ -10,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -112,6 +114,9 @@ public class PatientDataController implements Initializable {
     private TableColumn<String[], String> prescriptionsDescColumn;
 
     @FXML
+    private TableColumn<String[], String> prescriptionsFromColumn;
+
+    @FXML
     private Button btnLogOut;
 
     @FXML
@@ -171,8 +176,6 @@ public class PatientDataController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Patient data init");
-
         setEditingViewVisible(isDoctorPermission);
 
         initColumns();
@@ -189,21 +192,214 @@ public class PatientDataController implements Initializable {
     @FXML
     private void handleClicks(ActionEvent event) {
         if (event.getSource() == bntInsurance) {
+            dataTextField.promptTextProperty().set("Issue date|Description");
             setCurrentPanelActive(PanelType.INSURANCES);
         } else if (event.getSource() == btnAllergy) {
+            dataTextField.promptTextProperty().set("Description");
             setCurrentPanelActive(PanelType.ALLERGIES);
         } else if (event.getSource() == btnDiseases) {
+            dataTextField.promptTextProperty().set("Disease name|Registration date");
             setCurrentPanelActive(PanelType.DISEASES);
         } else if (event.getSource() == btnReferrals) {
+            dataTextField.promptTextProperty().set("From doctor|Issue date|Expiry date|Specialization");
             setCurrentPanelActive(PanelType.REFERRALS);
         } else if (event.getSource() == btnAppointments) {
+            dataTextField.promptTextProperty().set("ReferralId|Time|Date|Description|Result");
             setCurrentPanelActive(PanelType.APPOINTMENTS);
         } else if (event.getSource() == btnResearches) {
+            dataTextField.promptTextProperty().set("Doctor|Start date|End date|Description");
             setCurrentPanelActive(PanelType.RESEARCHES);
         } else if (event.getSource() == btnRecipes) {
+            dataTextField.promptTextProperty().set("Medicine|Issue date|Expiration date|Doctor name");
             setCurrentPanelActive(PanelType.RECIPES);
         } else if (event.getSource() == btnLogOut) {
             logOut();
+        } else if (event.getSource() == btnAdd) {
+            addNewEntity();
+        }
+    }
+
+
+    private void addNewEntity() {
+        if (panelRecipes.isVisible()) {
+            addNewRecipe();
+        } else if (panelDiseases.isVisible()) {
+            addNewDisease();
+        } else if (panelAppointments.isVisible()) {
+            addNewAppointment();
+        } else if (panelInsurances.isVisible()) {
+            addNewInsurance();
+        } else if (panelReferrals.isVisible()) {
+            addNewReferral();
+        } else if (panelAllergies.isVisible()) {
+            addHypersensitivity();
+        } else if (panelResearches.isVisible()) {
+            addResearch();
+        }
+    }
+
+
+    private void addResearch() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            JSONParser parser = new JSONParser();
+            JSONObject doctor =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "doctor", "name", dataFromTextField.get(0)));
+
+            String doctorId = doctor.get("id").toString();
+
+            //send request
+
+            printSurveys();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void addHypersensitivity() {
+
+        //TODO REDO
+        HttpRequestSender sender = new HttpRequestSender();
+        String dataFromTextField = dataTextField.getCharacters().toString();
+
+        System.out.println(dataFromTextField);
+
+        ArrayList<String> keys = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
+
+        keys.add("patientId");
+        keys.add("description");
+        values.add(String.valueOf(patientID));
+        values.add(dataFromTextField);
+
+        sender.insertNewItemInTable("Hypersensitivity", keys, values);
+
+        hypersensTable.getItems().clear();
+        DataHolder.hypersensitivities =  DataHolder.loadTable("Hypersensitivities");
+        printAllergies();
+    }
+
+
+    private void addNewReferral() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            JSONParser parser = new JSONParser();
+            JSONObject doctor =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "doctor", "name", dataFromTextField.get(0)));
+
+            JSONObject specialization =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "specialization", "name", dataFromTextField.get(3)));
+
+            String doctorId = doctor.get("id").toString();
+            String specializationId = specialization.get("id").toString();
+
+            //Send request
+
+            printReferrals();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void addNewInsurance() {
+        HttpRequestSender sender = new HttpRequestSender();
+
+        ArrayList<String> dataFromTextField =
+                new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+        //Http request
+
+        printInsurances();
+    }
+
+
+    private void addNewAppointment() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            //timestamp
+            //Send request
+
+            printVisits();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void addNewDisease() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            JSONParser parser = new JSONParser();
+            JSONObject disease =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "disease", "name", dataFromTextField.get(0)));
+
+            String diseaseId = disease.get("id").toString();
+
+            //Send request
+
+            printDiseases();
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void addNewRecipe() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            JSONParser parser = new JSONParser();
+            JSONObject medicine =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "medicine", "name", dataFromTextField.get(0)));
+            JSONObject doctor =
+                    (JSONObject) parser.parse(
+                            sender.getObjectByKeyAndValue(
+                                    "doctor", "name", dataFromTextField.get(0)));
+
+            String medicineId = medicine.get("id").toString();
+            String doctorId = doctor.get("id").toString();
+
+            //Send request to add
+
+            printPrescriptions();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -287,6 +483,8 @@ public class PatientDataController implements Initializable {
                 ViewConfigurator.getStdCallbackForCVF("<no using>", 3));
         prescriptionsDescColumn.setCellValueFactory(
                 ViewConfigurator.getStdCallbackForCVF("<no description>", 4));
+        prescriptionsFromColumn.setCellValueFactory(
+                ViewConfigurator.getStdCallbackForCVF("<no doctor>", 5));
     }
 
 
@@ -480,12 +678,18 @@ public class PatientDataController implements Initializable {
 
 
     private void printAllergies() {
-        //Implement on server
+        JSONHandler handler = new JSONHandler();
+        JSONArray hypersensitivitiesJsonArr = handler.filterItemsByValue(
+                DataHolder.hypersensitivities, "patientId", String.valueOf(patientID));
+
+        ArrayList<String> data = DataConverter.convertJsonToStrArrByKey(hypersensitivitiesJsonArr, "description");
+
+        String[] rawData = new String[data.size()];
+        hypersensTable.getItems().addAll(data.toArray(rawData));
     }
 
 
     private void printPrescriptions() {
-
         JSONHandler handler = new JSONHandler();
         JSONArray prescriptionsJsonArr = handler.filterItemsByValue(
                 DataHolder.prescriptions, "patientId", String.valueOf(patientID));
@@ -495,6 +699,12 @@ public class PatientDataController implements Initializable {
         JSONArray medicinesJsonArr =
                 handler.filterItemsByMultipleValues(DataHolder.medicines, "id", medicinesIdStr);
 
+        ArrayList<Object> doctorsIdObj = handler.getValuesArray(prescriptionsJsonArr, "doctorId");
+        ArrayList<String> doctorsIdStr = DataConverter.convertObjArrToStrArr(doctorsIdObj);
+        JSONArray doctorsJsonArr =
+                handler.filterItemsByMultipleValues(DataHolder.doctors, "id", doctorsIdStr);
+
+        ArrayList<String> doctorData = DataConverter.convertJsonToStrArrByKey(doctorsJsonArr, "name");
         ArrayList<ArrayList<String>> dateData = ViewConfigurator.getColumnDataFromJsonArr(
                 prescriptionsJsonArr, new ArrayList<>(Arrays.asList("issueDate", "expirationDate")));
         ArrayList<ArrayList<String>> medicineData = ViewConfigurator.getColumnDataFromJsonArr(
@@ -504,6 +714,7 @@ public class PatientDataController implements Initializable {
         for (int i = 0; i < data.size(); i++) {
             data.get(i).add(1, dateData.get(i).get(1));
             data.get(i).add(1, dateData.get(i).get(0));
+            data.get(i).add(doctorData.get(i));
         }
 
         var rawData = DataConverter.convertToRawData(data);

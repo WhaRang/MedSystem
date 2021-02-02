@@ -9,10 +9,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static Stage loginStage;
-    private static Stage patientDataStage;
-    private static Stage signupStage;
-    private static Stage choosePatientStage;
+    public static String token;
+
+    public static Stage loginStage;
+    public static Stage patientDataStage;
+    public static Stage signupStage;
+    public static Stage choosePatientStage;
 
     public static boolean shouldInitLoginStage = true;
     public static boolean shouldInitPatientDataStage = true;
@@ -26,10 +28,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-        (new HttpRequestSender()).setTokenFromLogin("admin", "admin.123");
-
-        DataHolder.initializeData();
         loadLogin();
     }
 

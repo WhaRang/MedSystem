@@ -185,6 +185,36 @@
             </Pane>
          </children>
       </GridPane>
+      <GridPane fx:id="panelInsurances" layoutX="213.0" layoutY="39.0" prefHeight="470.0" prefWidth="466.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView fx:id="insuranceTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+              <columns>
+                <TableColumn fx:id="insuranceExpDateColumn" prefWidth="156.8000030517578" text="Data ważności" />
+                  <TableColumn fx:id="insuranceDescColumn" minWidth="0.0" prefWidth="308.7999755859375" text="Opis" />
+              </columns>
+            </TableView>
+            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
+               <GridPane.margin>
+                  <Insets left="-22.0" right="-21.0" />
+               </GridPane.margin>
+               <children>
+                  <Text fx:id="txtStatus" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ubezpieczenia" textAlignment="CENTER" wrappingWidth="169.33667755126953">
+                     <font>
+                        <Font name="Microsoft New Tai Lue" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
       <GridPane fx:id="panelAppointments" layoutX="213.0" layoutY="39.0" prefHeight="470.0" prefWidth="466.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -209,36 +239,6 @@
                </GridPane.margin>
                <children>
                   <Text fx:id="txtStatus12" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wizyty" textAlignment="CENTER" wrappingWidth="169.33667755126953">
-                     <font>
-                        <Font name="Microsoft New Tai Lue" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </GridPane>
-      <GridPane fx:id="panelInsurances" layoutX="213.0" layoutY="39.0" prefHeight="470.0" prefWidth="466.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="95.19999237060547" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="145.60001220703126" minHeight="10.0" prefHeight="33.60000762939454" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="344.79997558593743" minHeight="10.0" prefHeight="315.19999389648444" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TableView fx:id="insuranceTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-              <columns>
-                <TableColumn fx:id="insuranceExpDateColumn" prefWidth="156.8000030517578" text="Data ważności" />
-                  <TableColumn fx:id="insuranceDescColumn" minWidth="0.0" prefWidth="308.7999755859375" text="Opis" />
-              </columns>
-            </TableView>
-            <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
-               <GridPane.margin>
-                  <Insets left="-22.0" right="-21.0" />
-               </GridPane.margin>
-               <children>
-                  <Text fx:id="txtStatus" fill="WHITE" layoutX="38.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ubezpieczenia" textAlignment="CENTER" wrappingWidth="169.33667755126953">
                      <font>
                         <Font name="Microsoft New Tai Lue" size="24.0" />
                      </font>
@@ -375,17 +375,7 @@
          </children>
       </GridPane>
       <TextField fx:id="dataTextField" layoutX="213.0" layoutY="150.0" prefHeight="31.0" prefWidth="467.0" promptText="column1|column2|..." />
-      <Button fx:id="btnFind" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Szukaj" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Microsoft New Tai Lue" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Usuń" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Microsoft New Tai Lue" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Dodaj" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Dodaj" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Microsoft New Tai Lue" size="14.0" />
          </font>

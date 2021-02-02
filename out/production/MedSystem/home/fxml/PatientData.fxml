@@ -375,17 +375,7 @@
          </children>
       </GridPane>
       <TextField fx:id="dataTextField" layoutX="213.0" layoutY="150.0" prefHeight="31.0" prefWidth="467.0" promptText="column1|column2|..." />
-      <Button fx:id="btnFind" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Szukaj" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Microsoft New Tai Lue" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Usuń" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Microsoft New Tai Lue" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Dodaj" textAlignment="CENTER" textFill="WHITE">
+      <Button fx:id="btnAdd" alignment="CENTER" contentDisplay="CENTER" layoutX="377.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Dodaj" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Microsoft New Tai Lue" size="14.0" />
          </font>

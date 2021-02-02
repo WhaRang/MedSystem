@@ -4,14 +4,10 @@ import home.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -165,12 +161,6 @@ public class PatientDataController implements Initializable {
     private TextField dataTextField;
 
     @FXML
-    private Button btnFind;
-
-    @FXML
-    private Button btnDelete;
-
-    @FXML
     private Button btnAdd;
 
 
@@ -185,12 +175,16 @@ public class PatientDataController implements Initializable {
 
     private void setEditingViewVisible(boolean isVisible) {
         btnAdd.setVisible(isVisible);
-        btnDelete.setVisible(isVisible);
+        dataTextField.setVisible(isVisible);
     }
 
 
     @FXML
     private void handleClicks(ActionEvent event) {
+        if (!(event.getSource() == btnAdd)) {
+            dataTextField.clear();
+        }
+
         if (event.getSource() == bntInsurance) {
             dataTextField.promptTextProperty().set("Issue date|Description");
             setCurrentPanelActive(PanelType.INSURANCES);
@@ -241,109 +235,179 @@ public class PatientDataController implements Initializable {
 
     private void addResearch() {
         try {
+            JSONHandler handler = new JSONHandler();
             HttpRequestSender sender = new HttpRequestSender();
 
             ArrayList<String> dataFromTextField =
                     new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
 
-            JSONParser parser = new JSONParser();
-            JSONObject doctor =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "doctor", "name", dataFromTextField.get(0)));
+            JSONArray doctor =
+                    handler.filterItemsByValue(DataHolder.doctors, "name", dataFromTextField.get(0));
+            String doctorId = ((JSONObject) doctor.get(0)).get("id").toString();
 
-            String doctorId = doctor.get("id").toString();
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
 
-            //send request
+            keys.add("patientId");
+            keys.add("doctorId");
+            keys.add("startDate");
+            keys.add("endDate");
+            keys.add("description");
+
+            values.add(String.valueOf(patientID));
+            values.add(doctorId);
+            values.add(dataFromTextField.get(1));
+            values.add(dataFromTextField.get(2));
+            values.add(dataFromTextField.get(3));
+
+            sender.insertNewItemInTable("Survey", keys, values);
+
+            surveysTable.getItems().clear();
+            DataHolder.surveys = DataHolder.loadTable("Surveys");
 
             printSurveys();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            showAlert();
         }
     }
 
 
     private void addHypersensitivity() {
 
-        //TODO REDO
-        HttpRequestSender sender = new HttpRequestSender();
-        String dataFromTextField = dataTextField.getCharacters().toString();
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+            String dataFromTextField = dataTextField.getCharacters().toString();
 
-        System.out.println(dataFromTextField);
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
 
-        ArrayList<String> keys = new ArrayList<>();
-        ArrayList<String> values = new ArrayList<>();
+            keys.add("patientId");
+            keys.add("description");
+            values.add(String.valueOf(patientID));
+            values.add(dataFromTextField);
 
-        keys.add("patientId");
-        keys.add("description");
-        values.add(String.valueOf(patientID));
-        values.add(dataFromTextField);
+            sender.insertNewItemInTable("Hypersensitivity", keys, values);
 
-        sender.insertNewItemInTable("Hypersensitivity", keys, values);
 
-        hypersensTable.getItems().clear();
-        DataHolder.hypersensitivities =  DataHolder.loadTable("Hypersensitivities");
-        printAllergies();
+            hypersensTable.getItems().clear();
+            DataHolder.hypersensitivities = DataHolder.loadTable("Hypersensitivities");
+            printAllergies();
+        } catch (Exception e) {
+            showAlert();
+        }
     }
 
 
     private void addNewReferral() {
         try {
             HttpRequestSender sender = new HttpRequestSender();
+            JSONHandler handler = new JSONHandler();
 
             ArrayList<String> dataFromTextField =
                     new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
 
-            JSONParser parser = new JSONParser();
-            JSONObject doctor =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "doctor", "name", dataFromTextField.get(0)));
+            JSONArray doctor =
+                    handler.filterItemsByValue(DataHolder.doctors, "name", dataFromTextField.get(0));
+            JSONArray specialization =
+                    handler.filterItemsByValue(DataHolder.specializations, "description", dataFromTextField.get(3));
 
-            JSONObject specialization =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "specialization", "name", dataFromTextField.get(3)));
+            String doctorId = ((JSONObject) doctor.get(0)).get("id").toString();
+            String specializationId = ((JSONObject) specialization.get(0)).get("id").toString();
 
-            String doctorId = doctor.get("id").toString();
-            String specializationId = specialization.get("id").toString();
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
 
-            //Send request
+            keys.add("patientId");
+            keys.add("fromDoctorId");
+            keys.add("specializationId");
+            keys.add("issueDate");
+            keys.add("expirationDate");
+
+            values.add(String.valueOf(patientID));
+            values.add(doctorId);
+            values.add(specializationId);
+            values.add(dataFromTextField.get(1));
+            values.add(dataFromTextField.get(2));
+
+            sender.insertNewItemInTable("Referral", keys, values);
+
+            referralsTable.getItems().clear();
+            DataHolder.referrals = DataHolder.loadTable("Referrals");
 
             printReferrals();
-
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert();
         }
     }
 
 
     private void addNewInsurance() {
-        HttpRequestSender sender = new HttpRequestSender();
-
-        ArrayList<String> dataFromTextField =
-                new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
-
-        //Http request
-
-        printInsurances();
-    }
-
-
-    private void addNewAppointment() {
         try {
             HttpRequestSender sender = new HttpRequestSender();
 
             ArrayList<String> dataFromTextField =
                     new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
 
-            //timestamp
-            //Send request
+            System.out.println(dataFromTextField);
+
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
+
+            keys.add("patientId");
+            keys.add("expirationDate");
+            keys.add("description");
+
+            values.add(String.valueOf(patientID));
+            values.add(dataFromTextField.get(0));
+            values.add(dataFromTextField.get(1));
+
+            sender.insertNewItemInTable("Insurance", keys, values);
+
+            insuranceTable.getItems().clear();
+            DataHolder.insurances = DataHolder.loadTable("Insurances");
+
+            printInsurances();
+        } catch (Exception e) {
+            showAlert();
+        }
+    }
+
+
+    private void addNewAppointment() {
+        try {
+            HttpRequestSender sender = new HttpRequestSender();
+            JSONHandler handler = new JSONHandler();
+
+            ArrayList<String> dataFromTextField =
+                    new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
+
+            System.out.println(DataHolder.visits);
+
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
+
+            JSONArray referral =
+                    handler.filterItemsByValue(DataHolder.referrals, "patientId", String.valueOf(patientID));
+            String referralId = ((JSONObject) referral.get(0)).get("id").toString();
+
+            keys.add("referralId");
+            keys.add("timestamp");
+            keys.add("description");
+            keys.add("result");
+
+            values.add(referralId);
+            values.add(dataFromTextField.get(1) + " " + dataFromTextField.get(0));
+            values.add(dataFromTextField.get(2));
+            values.add(dataFromTextField.get(3));
+
+            sender.insertNewItemInTable("Visit", keys, values);
+
+            visitsTable.getItems().clear();
+            DataHolder.visits = DataHolder.loadTable("Visits");
 
             printVisits();
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert();
         }
     }
 
@@ -351,25 +415,35 @@ public class PatientDataController implements Initializable {
     private void addNewDisease() {
         try {
             HttpRequestSender sender = new HttpRequestSender();
+            JSONHandler handler = new JSONHandler();
 
             ArrayList<String> dataFromTextField =
                     new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
 
-            JSONParser parser = new JSONParser();
-            JSONObject disease =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "disease", "name", dataFromTextField.get(0)));
+            JSONArray disease =
+                    handler.filterItemsByValue(DataHolder.diseases, "name", dataFromTextField.get(0));
 
-            String diseaseId = disease.get("id").toString();
+            String diseaseId = ((JSONObject) disease.get(0)).get("id").toString();
 
-            //Send request
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
+
+            keys.add("patientId");
+            keys.add("detectionDate");
+            keys.add("diseaseId");
+
+            values.add(String.valueOf(patientID));
+            values.add(dataFromTextField.get(1));
+            values.add(diseaseId);
+
+            sender.insertNewItemInTable("PatientDisease", keys, values);
+
+            diseasesTable.getItems().clear();
+            DataHolder.patientDiseases = DataHolder.loadTable("PatientDisease");
 
             printDiseases();
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            showAlert();
         }
     }
 
@@ -377,29 +451,43 @@ public class PatientDataController implements Initializable {
     private void addNewRecipe() {
         try {
             HttpRequestSender sender = new HttpRequestSender();
+            JSONHandler handler = new JSONHandler();
 
             ArrayList<String> dataFromTextField =
                     new ArrayList<>(Arrays.asList(dataTextField.getCharacters().toString().split("\\|")));
 
-            JSONParser parser = new JSONParser();
-            JSONObject medicine =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "medicine", "name", dataFromTextField.get(0)));
-            JSONObject doctor =
-                    (JSONObject) parser.parse(
-                            sender.getObjectByKeyAndValue(
-                                    "doctor", "name", dataFromTextField.get(0)));
+            JSONArray medicine =
+                    handler.filterItemsByValue(DataHolder.medicines, "name", dataFromTextField.get(0));
+            JSONArray doctor =
+                    handler.filterItemsByValue(DataHolder.doctors, "name", dataFromTextField.get(3));
 
-            String medicineId = medicine.get("id").toString();
-            String doctorId = doctor.get("id").toString();
 
-            //Send request to add
+            String medicineId = (((JSONObject) medicine.get(0)).get("id")).toString();
+            String doctorId = (((JSONObject) doctor.get(0)).get("id")).toString();
+
+            ArrayList<String> keys = new ArrayList<>();
+            ArrayList<String> values = new ArrayList<>();
+
+            keys.add("medicineId");
+            keys.add("patientId");
+            keys.add("doctorId");
+            keys.add("issueDate");
+            keys.add("expirationDate");
+
+            values.add(medicineId);
+            values.add(String.valueOf(patientID));
+            values.add(doctorId);
+            values.add(dataFromTextField.get(1));
+            values.add(dataFromTextField.get(2));
+
+            sender.insertNewItemInTable("Prescription", keys, values);
+
+            prescriptionsTable.getItems().clear();
+            DataHolder.prescriptions = DataHolder.loadTable("Prescriptions");
 
             printPrescriptions();
-
         } catch (Exception e) {
-            e.printStackTrace();
+            showAlert();
         }
     }
 
@@ -763,4 +851,14 @@ public class PatientDataController implements Initializable {
             Main.shouldInitPatientDataStage = true;
         }
     }
+
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Wrong data");
+        alert.setContentText("Entered data is wrong");
+        alert.showAndWait();
+    }
+
 }

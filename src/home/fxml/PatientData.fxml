@@ -353,10 +353,11 @@
             <TableView fx:id="prescriptionsTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <columns>
                   <TableColumn fx:id="prescriptionsMedicineColumn" minWidth="0.0" prefWidth="54.39996337890625" text="Lek" />
-                  <TableColumn fx:id="prescriptionsDateStartColumn" minWidth="0.0" prefWidth="91.99993896484375" text="DataWydania" />
-                  <TableColumn fx:id="prescriptionsDateEndColumn" minWidth="0.0" prefWidth="88.79998779296875" text="DataWażności" />
-                  <TableColumn fx:id="prescriptionsUsingColumn" minWidth="0.0" prefWidth="104.0" text="Stosowanie" />
-                  <TableColumn fx:id="prescriptionsDescColumn" minWidth="0.0" prefWidth="127.20001220703125" text="Opis" />
+                  <TableColumn fx:id="prescriptionsDateStartColumn" minWidth="0.0" prefWidth="79.20001220703125" text="DataWydania" />
+                  <TableColumn fx:id="prescriptionsDateEndColumn" minWidth="0.0" prefWidth="88.0" text="DataWażności" />
+                  <TableColumn fx:id="prescriptionsUsingColumn" minWidth="0.0" prefWidth="82.39996337890625" text="Stosowanie" />
+                  <TableColumn fx:id="prescriptionsDescColumn" minWidth="0.0" prefWidth="56.0" text="Opis" />
+                  <TableColumn fx:id="prescriptionsFromColumn" minWidth="0.0" prefWidth="105.59996337890624" text="Wydany przez" />
                </columns>
             </TableView>
             <Pane prefHeight="200.0" prefWidth="516.0" style="-fx-background-color: #5258A8;">
@@ -373,7 +374,7 @@
             </Pane>
          </children>
       </GridPane>
-      <TextField fx:id="textField" layoutX="213.0" layoutY="150.0" prefHeight="31.0" prefWidth="467.0" promptText="column1|column2|..." />
+      <TextField fx:id="dataTextField" layoutX="213.0" layoutY="150.0" prefHeight="31.0" prefWidth="467.0" promptText="column1|column2|..." />
       <Button fx:id="btnFind" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="32.0" prefWidth="140.0" stylesheets="@../css/buttonstyle.css" text="Szukaj" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Microsoft New Tai Lue" size="14.0" />

@@ -1,6 +1,7 @@
 package home.controllers;
 
 
+import home.HttpRequestSender;
 import home.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +32,8 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Login init");
+        //TEST
+        HttpRequestSender sender = new HttpRequestSender();
     }
 
 

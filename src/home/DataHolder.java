@@ -14,7 +14,7 @@ public class DataHolder {
     public static JSONArray patientDiseases;
     public static JSONArray medicines;
     public static JSONArray insurances;
-    //public static JSONArray hypersensitivities;
+    public static JSONArray hypersensitivities;
     public static JSONArray prescriptions;
     public static JSONArray referrals;
     public static JSONArray surveys;
@@ -33,7 +33,7 @@ public class DataHolder {
         patientDiseases = loadTable("PatientDisease");
         medicines = loadTable("Medicines");
         insurances = loadTable("Insurances");
-        //hypersensitivities = loadTable("Hypersensitivities");
+        hypersensitivities = loadTable("Hypersensitivities");
         prescriptions = loadTable("Prescriptions");
         referrals = loadTable("Referrals");
         surveys = loadTable("Surveys");

@@ -38,4 +38,25 @@ public class HttpRequestSender {
 
         return responseStr;
     }
+
+    public HttpResponse<String> getResponseFromServer(String queryURL, String body) {
+
+        String responseStr = null;
+        HttpResponse<String> responseHttp = null;
+
+        try {
+            var request = HttpRequest.newBuilder(
+                    URI.create(queryURL))
+                    .header("Authorization",
+                            "eyJzY29wZSI6ImFsbCIsImlkIjoiMTIiLCJleHAiOiIyMDIxLTAxLTMxVDIzOjA4OjM5LjcwODA1NyswMTowMCJ9")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+
+            return client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       return responseHttp;
+    }
 }

@@ -19,6 +19,8 @@ public class Main extends Application {
     public static boolean shouldInitSignupStage = true;
     public static boolean shouldInitChoosePatientStage = true;
 
+    public static String token;
+
     public static void main(String[] args) {
         launch(args);
     }
